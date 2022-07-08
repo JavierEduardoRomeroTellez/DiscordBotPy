@@ -40,4 +40,4 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game("Me pela la verga Tony Stark"))
     print('México desperto cabrones')
 
-bot.run('OTk1MDk1ODMyNzg3NDM5Njc2.GesJoT.nEcavKOls9kzXzW1SpkU-qPXW-WnxQ7NXJsHeM')
+bot.run('Insert Bot Token Here')
