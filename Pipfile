@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 "discord.py" = "*"
+youtube-dl = "*"
+pynacl = "*"
+asyncio = "*"
 
 [dev-packages]
 

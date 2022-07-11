@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# executables
+.ffmpeg.exe
+ffmpeg.exe

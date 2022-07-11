@@ -4,8 +4,14 @@ import datetime
 from discord.ext import commands
 from urllib import parse, request
 import re
+import music
+
+Cog = [music]
 
 bot = commands.Bot(command_prefix='>', description="Un bot bien verga")
+
+for i in range(len(Cog)):
+    Cog[i].setup(bot)
 
 @bot.command()
 async def ping(ctx):
@@ -27,7 +33,7 @@ async def info(ctx):
    await ctx.send(embed=embed)
 
 @bot.command()
-async def p(ctx, *, search):
+async def pito(ctx, *, search):
     busqueda_mamalona = parse.urlencode({'search_query': search})
     html_content = request.urlopen('https://www.youtube.com/results?' + busqueda_mamalona)
     resultados_mamalones = re.findall('watch\?v=(.{11})',html_content.read().decode('utf-8'))
@@ -40,4 +46,4 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game("Me pela la verga Tony Stark"))
     print('México desperto cabrones')
 
-bot.run('Insert Bot Token Here')
+bot.run('Aqui va el token XD') # Quitar el Token antes de subir a GIT XD
