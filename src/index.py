@@ -5,10 +5,15 @@ from discord.ext import commands
 from urllib import parse, request
 import re
 import music
+import random
 
 Cog = [music]
 
-bot = commands.Bot(command_prefix='>', description="Un bot bien verga")
+# Esto es para dar la bienvenida, son como permisos del bot de Discord para poder interactuar con el SV y los miembros
+intents = discord.Intents.all()
+
+bot = commands.Bot(command_prefix='>',
+                   description="Un bot bien verga", intents=intents)  # Se carga aqui
 
 for i in range(len(Cog)):
     Cog[i].setup(bot)
@@ -50,6 +55,9 @@ async def pito(ctx, *, search):
 
 @bot.command(name='nhcodes', aliases=['h', 'nh'])
 async def nhentai(ctx):
+    numero = random.randint(2, 401092)
+    parseo = str(numero)
+    await ctx.send('https://nhentai.to/g/' + parseo)
     await ctx.send('Kya')
 
 # Events
@@ -60,4 +68,26 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game("Me pela la verga Tony Stark"))
     print('México desperto cabrones')
 
-bot.run('Aqui va el token XD')  # Quitar el Token antes de subir a GIT XD
+# Anunciar bienvenida
+
+
+@bot.event
+async def on_member_join(member):
+    print(f"{member} se ha unido al show")
+    welcome_channel = bot.get_channel(996294619723747378)
+    await welcome_channel.send(f"{member.mention} se ha unido al show! :hot_face: :point_right::ok_hand: :sweat_drops:")
+
+# Anunciar salida
+
+
+@bot.event
+async def on_member_remove(member):
+    print(f"{member} se fue a la verga")
+    msgs = ['sisisisi, que se vaya!', 'Se fue un joto', 'Ni quien te queria aqui',
+            'Te ira mejor en el bote', 'Este wey era simpatizante de AMLO']
+    welcome_channel = bot.get_channel(996296050606362714)
+    await welcome_channel.send(f"{member.mention}" + random.choice(msgs))
+
+
+# Quitar el Token antes de subir a GIT XD
+bot.run('Aqui va el token del bot')
