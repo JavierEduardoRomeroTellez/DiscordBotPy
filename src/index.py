@@ -4,7 +4,6 @@ import datetime
 from discord.ext import commands
 from urllib import parse, request
 import re
-from BeautifulSoup import BeautifulSoup
 import music
 import random
 
@@ -69,9 +68,12 @@ async def nhentai(ctx):
     html_content = response.read()
 
     resultados_mamalones = re.findall(
-        'img width="350" src="https://cdn.nload.xyz/galleries/(.{7})/cover.jpg', html_content.decode('utf-8'))
+        'img width="350" src="([^"]+)', html_content.decode('utf-8'))
     print(resultados_mamalones)
-    await ctx.send('https://cdn.nload.xyz/galleries/' + resultados_mamalones[0] + '/cover.jpg')
+    if(len(resultados_mamalones) > 0):
+        await ctx.send(resultados_mamalones[0])    
+    else:
+        await ctx.send('https://i.imgflip.com/659hk3.jpg')
     await ctx.send('Kya')
 
 # Events
@@ -104,4 +106,4 @@ async def on_member_remove(member):
 
 
 # Quitar el Token antes de subir a GIT XD
-bot.run('Aqui va el token del bot')
+bot.run('Aqui habia ponido mi token')
