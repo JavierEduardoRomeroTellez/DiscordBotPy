@@ -4,6 +4,7 @@ import datetime
 from discord.ext import commands
 from urllib import parse, request
 import re
+from BeautifulSoup import BeautifulSoup
 import music
 import random
 
@@ -57,7 +58,20 @@ async def pito(ctx, *, search):
 async def nhentai(ctx):
     numero = random.randint(2, 401092)
     parseo = str(numero)
-    await ctx.send('https://nhentai.to/g/' + parseo)
+    code = ('https://nhentai.to/g/' + parseo)
+    await ctx.send(code)
+
+    user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
+    headers = {'User-Agent': user_agent}
+
+    request1 = request.Request(code, None, headers)
+    response = request.urlopen(request1)
+    html_content = response.read()
+
+    resultados_mamalones = re.findall(
+        'img width="350" src="https://cdn.nload.xyz/galleries/(.{7})/cover.jpg', html_content.decode('utf-8'))
+    print(resultados_mamalones)
+    await ctx.send('https://cdn.nload.xyz/galleries/' + resultados_mamalones[0] + '/cover.jpg')
     await ctx.send('Kya')
 
 # Events
