@@ -2,10 +2,13 @@ from turtle import title
 import discord
 import datetime
 from discord.ext import commands
-from urllib import parse, request
-import re
+#from urllib import parse, request
+#from NHentai import NHentai
+#import re
 import music
 import random
+import requests
+import json
 
 Cog = [music]
 
@@ -37,8 +40,7 @@ async def info(ctx):
     embed.add_field(name="Server Owner", value=f"{ctx.guild.owner}")
     embed.add_field(name="Server Region", value=f"{ctx.guild.region}")
     embed.add_field(name="Server ID", value=f"{ctx.guild.id}")
-    embed.set_thumbnail(
-        url="https://c.tenor.com/VU9RgGX08DIAAAAC/globama-obama.gif")
+    embed.set_thumbnail(url="https://c.tenor.com/VU9RgGX08DIAAAAC/globama-obama.gif")
     await ctx.send(embed=embed)
 
 
@@ -52,29 +54,36 @@ async def pito(ctx, *, search):
     # print(resultados_mamalones)
     await ctx.send('http://www.youtube.com/watch?v=' + resultados_mamalones[0])
 
-
-@bot.command(name='nhcodes', aliases=['h', 'nh'])
+# Comando de chichis
+@bot.command(name='chiches', aliases=['boobs', 'chichis'])
 async def nhentai(ctx):
-    numero = random.randint(2, 401092)
-    parseo = str(numero)
-    code = ('https://nhentai.to/g/' + parseo)
-    await ctx.send(code)
+    await ctx.send('Tenga sus chichis señor')
+    response = requests.get('http://api.nekos.fun:8080/api/boobs')
+    result = response.json()
+    await ctx.send(result['image'])
 
-    user_agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.7) Gecko/2009021910 Firefox/3.0.7'
-    headers = {'User-Agent': user_agent}
+# Comando de hentai
+@bot.command(name='hentaii', aliases=['h', 'hentai'])
+async def nhentai(ctx):
+    await ctx.send('Veo que eres un hombre de cultura')
+    response = requests.get('http://api.nekos.fun:8080/api/hentai')
+    result = response.json()
+    await ctx.send(result['image'])
 
-    request1 = request.Request(code, None, headers)
-    response = request.urlopen(request1)
-    html_content = response.read()
+# Comando de cum
+@bot.command(name='cumm', aliases=['cum', 'cumming'])
+async def nhentai(ctx):
+    response = requests.get('http://api.nekos.fun:8080/api/cum')
+    result = response.json()
+    await ctx.send(result['image'])
 
-    resultados_mamalones = re.findall(
-        'img width="350" src="([^"]+)', html_content.decode('utf-8'))
-    print(resultados_mamalones)
-    if(len(resultados_mamalones) > 0):
-        await ctx.send(resultados_mamalones[0])    
-    else:
-        await ctx.send('https://i.imgflip.com/659hk3.jpg')
-    await ctx.send('Kya')
+# Comando de nalgadas
+@bot.command(name='spanks', aliases=['nalgadas', 'spank'])
+async def nhentai(ctx):
+    await ctx.send('Veo que eres un hombre de cultura')
+    response = requests.get('http://api.nekos.fun:8080/api/spank')
+    result = response.json()
+    await ctx.send(result['image'])
 
 # Events
 
@@ -106,4 +115,4 @@ async def on_member_remove(member):
 
 
 # Quitar el Token antes de subir a GIT XD
-bot.run('Aqui habia ponido mi token')
+bot.run('OTk1MDk1ODMyNzg3NDM5Njc2.GAATyf.w3-Qo77icy4b6WE09TAFl1v5dY8fevfJ4Mmfs4')
